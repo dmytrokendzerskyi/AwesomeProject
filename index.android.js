@@ -8,21 +8,27 @@
 /**
  * DeepThoughts App v 0.1
  */
-import React, { Component } from 'react';
 
+var ReactNative = require('react-native');
+var React = require('react');
+var DetailPage = require('./DetailPage');
 import {
    ListView,
    View,
-   AppRegistry
+   AppRegistry,
+   Navigator
 } from 'react-native';
 
 import MyPresentationalComponent from './MyPresentationalComponent';
 
-var REQUEST_URL = 'http://whereistheparty.com.ua/getEvents?dateId=2017-04-27&townId=14';
-var date = new Date();
+var REQUEST_URL = 'http://whereistheparty.com.ua/getEvents?';
+var dateee = new Date();
+var wholeDate = dateee.getFullYear() + '-' + ('0' + (dateee.getMonth() + 1)).slice(-2) + '-' + ('0' + dateee.getDate()).slice(-2);
+var town = "townId=14";
 
+class StartPage extends React.Component{
+  
 
-export default class AwesomeProject extends Component {
    constructor(props) {
       super(props);
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id_event !== r2.id_event});
@@ -30,16 +36,17 @@ export default class AwesomeProject extends Component {
       this.state = {
         dataSource: ds.cloneWithRows(['row 1', 'row 2'])
       };
-      fetch(REQUEST_URL)
+      fetch(REQUEST_URL+'&dateId='+wholeDate+'&'+town)
       .then((response) => response.json())
       .then((responseData) => {
         
         // this.setState() will cause the new data to be applied to the UI that is created by the `render` function below
         console.log(responseData.length);
-        console.log(date.getTime());
+        console.log(dateee.getTime());
          this.setState(state => ({
     dataSource: this.state.dataSource.cloneWithRows(responseData)
     }));
+
 
           console.log(this.state.dataSource);
           
@@ -57,6 +64,43 @@ export default class AwesomeProject extends Component {
       );
    }
 }
+
+  class AwesomeProject extends React.Component {
+render () {
+    return (
+        <Navigator
+            initialRoute={{id: 'StartPage', name: 'Index'}}
+            renderScene={this.renderScene.bind(this)}
+            configureScene={(route) => {
+        if (route.sceneConfig) {
+          return route.sceneConfig;
+        }
+        return Navigator.SceneConfigs.VerticalDownSwipeJump;
+      }}/>
+    );
+   }
+   renderScene ( route, navigator ) {
+    var routeId = route.id;
+    if (routeId === 'StartPage') {
+        return (
+            <StartPage
+                navigator={navigator}/>
+        );
+    }
+    if (routeId === 'DetailPage') {
+        return (
+            <DetailPage
+                navigator={navigator}/>
+        );
+    }
+}
+}
+   
+  
+
+module.exports =StartPage;
+
+
 
 AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
 

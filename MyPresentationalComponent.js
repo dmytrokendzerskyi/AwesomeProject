@@ -5,10 +5,17 @@ import {
    Text,
    StyleSheet,
    Image,
-    Dimensions
+    Dimensions,
+    TouchableOpacity
 
 }  from  'react-native'
 
+import OpenDetailPage from './OpenDetailPage.js';
+
+ open = function(){
+        console.log("detail page run");
+        OpenDetailPage.open();
+ }
 export default MyPresentationalComponent = (props) => {
    return (
       <View style = {styles.background}>
@@ -20,7 +27,7 @@ export default MyPresentationalComponent = (props) => {
             dataSource = {props.dataSource}
             renderRow = {
                (rowData) => (
-                  <View style={styles.row}>
+                  <TouchableOpacity style={styles.row} onPress={this.open}> 
                       <Image
           style={styles.imageEvent}
           source={{uri: rowData.image_event}}
@@ -30,13 +37,16 @@ export default MyPresentationalComponent = (props) => {
                 <Text  style = {styles.textEvent}>{rowData.name_event}</Text>
       <Text numberOfLines={10} style =  {styles.textDescription}>{rowData.description_event}</Text>
       </View>
-       </View>
+       </TouchableOpacity>
+       
                )
             }
          />
       </View>
    )
+   
 }
+
 
 const styles = StyleSheet.create ({
     background: {
