@@ -7,6 +7,7 @@ import {
   Text,
   View,
   Image
+  
 } from 'react-native';
 
 class DetailPage extends Component {
