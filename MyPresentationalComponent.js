@@ -6,17 +6,19 @@ import {
    StyleSheet,
    Image,
     Dimensions,
-    TouchableOpacity
+    TouchableOpacity,
+     Navigator
 
 }  from  'react-native'
 
 import OpenDetailPage from './OpenDetailPage.js';
 
- open = function(){
-        console.log("detail page run");
-        OpenDetailPage.open();
- }
-export default MyPresentationalComponent = (props) => {
+
+  class MyPresentationalComponent extends Component{
+   constructor(props) {
+    super(props);
+   }
+  render(){
    return (
       <View style = {styles.background}>
         <View>
@@ -24,10 +26,10 @@ export default MyPresentationalComponent = (props) => {
           </View>
          <ListView
             style = {styles.listContainer}
-            dataSource = {props.dataSource}
+            dataSource = {this.props.dataSource}
             renderRow = {
                (rowData) => (
-                  <TouchableOpacity style={styles.row} onPress={this.open}> 
+                  <TouchableOpacity style={styles.row} onPress={this.open.bind(this)}> 
                       <Image
           style={styles.imageEvent}
           source={{uri: rowData.image_event}}
@@ -44,7 +46,13 @@ export default MyPresentationalComponent = (props) => {
          />
       </View>
    )
-   
+  }
+      open(){
+        console.log(this.props.dataSource);
+    this.props.navigation({
+            id: 'DetailPage'
+        });
+ }
 }
 
 
@@ -163,3 +171,5 @@ const styles = StyleSheet.create ({
    
   }
 })
+
+module.exports =MyPresentationalComponent;

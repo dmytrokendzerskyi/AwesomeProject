@@ -65,20 +65,14 @@ class StartPage extends React.Component{
    }
 }
 
-  class AwesomeProject extends React.Component {
-render () {
-    return (
-        <Navigator
-            initialRoute={{id: 'StartPage', name: 'Index'}}
-            renderScene={this.renderScene.bind(this)}
-            configureScene={(route) => {
-        if (route.sceneConfig) {
-          return route.sceneConfig;
-        }
-        return Navigator.SceneConfigs.VerticalDownSwipeJump;
-      }}/>
-    );
-   }
+var AwesomeProject = React.createClass ({
+render: function() {
+         return (
+          <Navigator
+                 initialRoute={{id: 'StartPage', }}
+                 renderScene={this.renderScene} />
+        );
+   },
    renderScene ( route, navigator ) {
     var routeId = route.id;
     if (routeId === 'StartPage') {
@@ -94,7 +88,7 @@ render () {
         );
     }
 }
-}
+})
    
   
 
