@@ -8,7 +8,6 @@ import {
     Dimensions,
     TouchableOpacity,
      Navigator
-
 }  from  'react-native'
 
 import OpenDetailPage from './OpenDetailPage.js';
@@ -47,12 +46,7 @@ import OpenDetailPage from './OpenDetailPage.js';
       </View>
    )
   }
-      open(){
-        console.log(this.props.dataSource);
-    this.props.navigation({
-            id: 'DetailPage'
-        });
- }
+
 }
 
 
