@@ -31,10 +31,19 @@ class DetailPage extends React.Component{
            <Image style={styles.imageEvent} source={{uri: this.props.data.image_event}}/>
            <View>
               <Text style={styles.titleText}>{ this.props.data.name_event}</Text>
-           </View> 
-           <Text style = {styles.textEvent}>{this.props.data.description_event}</Text>
-           <Text style = {styles.textEvent}>{this.props.data.date_event}</Text>
+           </View>
+           <View style={styles.detailitems}>
+              <Text style = {styles.detaillabel}>Опис</Text>
+              <Text style = {styles.textEvent}>{this.props.data.description_event}</Text>
+           </View>
+           <View style={styles.detailitems}>
+              <Text style = {styles.detaillabel}>Дата</Text>
+              <Text style = {styles.textEvent}>{this.props.data.date_event}</Text>
+           </View>
+           <View style={styles.detailitems}>
+           <Text style = {styles.detaillabel}>Місце</Text>
            <Text style = {styles.textEvent}>{this.props.data.name_company}</Text>
+           </View>
            </ScrollView>
         </View>
     );
@@ -85,7 +94,7 @@ const styles = StyleSheet.create({
     //  alignItems: 'center',
     paddingLeft: 20 ,
     alignItems: 'flex-end',
-    fontSize: 15,   
+    fontSize: 18,   
     textAlign:'justify',
     color: 'white',
     fontWeight: 'bold',
@@ -103,6 +112,33 @@ const styles = StyleSheet.create({
     backgroundColor: '#323639',
     alignSelf: "stretch"
   },
+
+        detailitems: {
+    flexDirection: 'column',
+    margin:3,
+    marginLeft:10,
+    padding: 3,
+    backgroundColor: '#323639',
+    alignSelf: "stretch"
+  },
+
+   detaillabel : {
+      flex:1,
+      //     alignSelf: 'stretch',
+      //  alignItems: 'center',
+      paddingLeft: 20 ,
+      alignItems: 'flex-end',
+      fontSize: 18,   
+      textAlign:'justify',
+      color: '#7E3094',
+      fontWeight: 'bold',
+      marginBottom: 5,
+      paddingTop:0,
+      marginTop :0,
+      paddingTop:0
+    
+    },
+
 });
 
 module.exports =DetailPage;
