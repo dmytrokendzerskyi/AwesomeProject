@@ -6,8 +6,7 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
-  ScrollView
+  Image
 
 } from 'react-native';
 
@@ -17,15 +16,14 @@ class DetailPage extends React.Component{
 
 
         <View style={styles.background}>
-          <ScrollView>
-             <Image style={styles.imageEvent} source={{uri: this.props.data.image_event}}/>
-             <View>
-                <Text style={styles.titleText}>{ this.props.data.name_event}</Text>
-             </View>
-            <Text style = {styles.textEvent}>{this.props.data.description_event}</Text>
-             <Text style = {styles.textEvent}>{this.props.data.date_event}</Text>
-             <Text style = {styles.textEvent}>{this.props.data.name_company}</Text>
-          </ScrollView> 
+           <Image style={styles.imageEvent} source={{uri: this.props.data.image_event}}/>
+           <View>
+              <Text style={styles.titleText}>{ this.props.data.name_event}</Text>
+           </View>
+           <Text style = {styles.textEvent}>{this.props.data.description_event}</Text>
+           <Text style = {styles.textEvent}>{this.props.data.date_event}</Text>
+           <Text style = {styles.textEvent}>{this.props.data.name_company}</Text>
+
         </View>
     );
 
@@ -42,7 +40,7 @@ const styles = StyleSheet.create({
    titleText: {
     paddingTop:10,
     paddingBottom:10,
-    color: 'white',    
+    color: 'white',
     textAlign: 'center',
     fontSize: 20,
     fontWeight: 'bold',

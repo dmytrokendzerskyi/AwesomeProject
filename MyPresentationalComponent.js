@@ -150,9 +150,6 @@ const styles = StyleSheet.create ({
   
   },
   textDescription  : {
-//       flexDirection: 'column',
-//    alignSelf: 'stretch',
-    
     fontSize: 10,   
     textAlign: 'justify',
     padding:0,
