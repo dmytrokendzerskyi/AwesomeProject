@@ -73,7 +73,7 @@ class StartPage extends React.Component{
             dataSource = {this.state.dataSource}
             renderRow = {
                (rowData) => (
-                  <TouchableOpacity style={styles.row} onPress={this.open.bind(this)}> 
+                  <TouchableOpacity style={styles.row} onPress={this.open.bind(this,rowData)}> 
                       <Image
           style={styles.imageEvent}
           source={{uri: rowData.image_event}}
@@ -92,9 +92,11 @@ class StartPage extends React.Component{
          </View>
       );
    }
-         open(){
+         open(rowData){
+           
     this.props.navigator.push({
-            id: 'DetailPage'
+            id: 'DetailPage',
+            data: rowData
         });
  }
 }
@@ -103,12 +105,19 @@ var AwesomeProject = React.createClass ({
 render: function() {
          return (
           <Navigator
-                 initialRoute={{id: 'StartPage' }}
-                 renderScene={this.renderScene} />
+                 initialRoute={{id: 'StartPage'}}
+                 renderScene={this.renderScene} 
+     configureScene={(route) => {
+    
+      return Navigator.SceneConfigs.VerticalUpSwipeJump;
+
+  }}
+                 />
         );
    },
-   renderScene ( route, navigator ) {
+   renderScene ( route, navigator) {
     var routeId = route.id;
+    var routeData = route.data;
     if (routeId === 'StartPage') {
         return (
             <StartPage
@@ -118,7 +127,7 @@ render: function() {
     if (routeId === 'DetailPage') {
         return (
             <DetailPage
-                navigator={navigator}/>
+                navigator={navigator} data={routeData} />
         );
     }
 }
@@ -130,7 +139,7 @@ render: function() {
         backgroundColor : '#1C2124'
     },
     titleText: {
-        paddingTop:20,
+    paddingTop:10,
     color: 'white',    
     textAlign: 'center',
     fontSize: 20,
@@ -138,8 +147,8 @@ render: function() {
   },
      row: {
     flexDirection: 'row',
-   margin:3,
-   marginLeft:10,
+    margin:3,
+    marginLeft:10,
     padding: 3,
     backgroundColor: '#323639',
     alignSelf: "stretch"
@@ -147,8 +156,7 @@ render: function() {
    listContainer: {
       marginTop: 0,
       flex: 0,
-      alignSelf: "stretch",
-      height: 587,
+      height:615
    },
    listItem: {
       fontSize: 30,
@@ -208,12 +216,12 @@ render: function() {
     paddingTop:0
   },
   textEvent : {
-      flex:1,
+    flex:1,
     //     alignSelf: 'stretch',
     //  alignItems: 'center',
-     paddingLeft: 20 ,
+    paddingLeft: 20 ,
     alignItems: 'flex-end',
-      fontSize: 15,   
+    fontSize: 15,   
     textAlign:'justify',
     color: 'white',
     fontWeight: 'bold',

@@ -28,7 +28,7 @@ import OpenDetailPage from './OpenDetailPage.js';
             dataSource = {this.props.dataSource}
             renderRow = {
                (rowData) => (
-                  <TouchableOpacity style={styles.row} onPress={this.open.bind(this)}> 
+                  <TouchableOpacity style={styles.row} onPress={this.open.bind(this,rowData)}> 
                       <Image
           style={styles.imageEvent}
           source={{uri: rowData.image_event}}
