@@ -6,16 +6,26 @@ import {
   StyleSheet,
   Text,
   View,
-  Image
-
+  Image,
+  Button,
+  Navigator,
+  TouchableOpacity
 } from 'react-native';
 
 class DetailPage extends React.Component{
+  goBack(){
+    this.props.navigator.pop({
+      id: 'StartPage'
+    });
+  }
   render(){
     return (
-
-
         <View style={styles.background}>
+          <View style={styles.backImage}> 
+          <TouchableOpacity onPress={(this.goBack.bind(this))}>
+        <Image style={{width:30 , height:30}} source={require('./image/ic_arrow.png')}/>
+         </TouchableOpacity>
+        </View>
            <Image style={styles.imageEvent} source={{uri: this.props.data.image_event}}/>
            <View>
               <Text style={styles.titleText}>{ this.props.data.name_event}</Text>
@@ -45,6 +55,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
+  backImage:{
+    alignSelf : 'stretch',
+    flexDirection: 'row',
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    flex:0,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)'
+ 
+  },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
@@ -56,7 +75,8 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   imageEvent: {
-    height:500
+    height:500,
+    resizeMode: 'cover'
   },
  textEvent : {
     flex:1,
