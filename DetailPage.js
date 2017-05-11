@@ -11,7 +11,11 @@ import {
   Navigator,
   TouchableOpacity,
   ScrollView,
+  Animated,
+  Dimensions,
 } from 'react-native';
+
+
 
 class DetailPage extends React.Component{
   goBack(){
@@ -22,12 +26,12 @@ class DetailPage extends React.Component{
   render(){
     return (
         <View style={styles.background}>
-          <ScrollView>
-          <View style={styles.backImage}> 
+           <Animated.View  style={styles.backImage}> 
           <TouchableOpacity onPress={(this.goBack.bind(this))}>
-        <Image style={{width:30 , height:30}} source={require('./image/ic_arrow.png')}/>
+        <Image style={{width:30 , height:30, opacity:1}} source={require('./image/ic_arrow.png')}/>
          </TouchableOpacity>
-        </View>
+        </Animated.View >
+          <ScrollView>
            <Image style={styles.imageEvent} source={{uri: this.props.data.image_event}}/>
            <View>
               <Text style={styles.titleText}>{ this.props.data.name_event}</Text>
@@ -57,12 +61,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   backImage:{
-    alignSelf : 'stretch',
     flexDirection: 'row',
-    shadowColor: '#000',
-    shadowOpacity: 0.2,
-    flex:0,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)'
+    shadowColor: 'black',
+    shadowOpacity: 0.8,
+    flex:1,
+    width: Dimensions.get('window').width,
+    opacity:0.5,
+    backgroundColor: 'black',
+    zIndex:1,
+    position:'absolute',
  
   },
   welcome: {

@@ -21,7 +21,9 @@ import {
    Image,
    Text,
     Dimensions,
-    TouchableOpacity
+    TouchableOpacity,
+    ScrollView,
+    ActivityIndicator
 } from 'react-native';
 
 import MyPresentationalComponent from './MyPresentationalComponent';
@@ -39,7 +41,8 @@ class StartPage extends React.Component{
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id_event !== r2.id_event});
       
       this.state = {
-        dataSource: ds.cloneWithRows(['row 1', 'row 2'])
+        dataSource: ds.cloneWithRows(['row 1', 'row 2']),
+        isLoading: true,
       };
       fetch(REQUEST_URL+'&dateId='+wholeDate+'&'+town)
       .then((response) => response.json())
@@ -49,7 +52,8 @@ class StartPage extends React.Component{
         console.log(responseData.length);
         console.log(dateee.getTime());
          this.setState(state => ({
-    dataSource: this.state.dataSource.cloneWithRows(responseData)
+    dataSource: this.state.dataSource.cloneWithRows(responseData),
+    isLoading: false
     }));
 
 
@@ -62,9 +66,17 @@ class StartPage extends React.Component{
    
    
    render() {
+     if (this.state.isLoading) {
       return (
-         <View>
+        <View style={{flex: 1, paddingTop: 20 , backgroundColor:'black'}}>
+          <ActivityIndicator />
+        </View>
+      );
+    }
+      return (
+        
             <View style = {styles.background}>
+              <ScrollView>
         <View>
           <Text style={styles.titleText}>Вечірки</Text>
           </View>
@@ -88,8 +100,8 @@ class StartPage extends React.Component{
                )
             }
          />
+         </ScrollView>
       </View>
-         </View>
       );
    }
          open(rowData){
@@ -156,7 +168,6 @@ render: function() {
    listContainer: {
       marginTop: 0,
       flex: 0,
-      height:615
    },
    listItem: {
       fontSize: 30,
