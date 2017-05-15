@@ -30,7 +30,7 @@ class DetailPage extends React.Component{
           
            <Animated.View  style={styles.backImage}> 
           <TouchableOpacity onPress={(this.goBack.bind(this))}>
-        <Image style={{width:30 , height:30, opacity:1}} source={require('./image/ic_arrow.png')}/>
+        <Image style={{width:30 , height:30, marginLeft:5, marginTop:7, opacity:1}} source={require('./image/ic_arrow.png')}/>
          </TouchableOpacity>
         </Animated.View >
           <ScrollView>
@@ -49,6 +49,11 @@ class DetailPage extends React.Component{
            <View style={styles.detailitems}>
            <Text style = {styles.detaillabel}>Місце</Text>
            <Text style = {styles.textEvent}>{this.props.data.name_company}</Text>
+           </View>
+           <View style={styles.detailitems}>
+            <Text style = {styles.detaillabel}>Ціна</Text>
+            <Text style = {styles.textEvent}>Хлопці:  {this.props.data.price_m}</Text>
+            <Text style = {styles.textEvent}>Дівчата: {this.props.data.price_w}</Text>
            </View>
            </ScrollView>
         </View>
@@ -82,6 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     zIndex:1,
     position:'absolute',
+    height:45
  
   },
   welcome: {
