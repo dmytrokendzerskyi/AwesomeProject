@@ -27,7 +27,6 @@ class DetailPage extends React.Component{
     return (
       
         <View style={styles.background}>
-          
            <Animated.View  style={styles.backImage}> 
           <TouchableOpacity onPress={(this.goBack.bind(this))}>
         <Image style={{width:30 , height:30, marginLeft:5, marginTop:7, opacity:1}} source={require('./image/ic_arrow.png')}/>
