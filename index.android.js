@@ -32,6 +32,9 @@ var REQUEST_URL = 'http://whereistheparty.com.ua/getEvents?';
 var dateee = new Date();
 var wholeDate = dateee.getFullYear() + '-' + ('0' + (dateee.getMonth() + 1)).slice(-2) + '-' + ('0' + dateee.getDate()).slice(-2);
 var town = "townId=14";
+var ScrollingMenu = require('react-native-scrolling-menu');
+
+let items = ['Menu Item 1','Menu Item 2','Menu Item 3','Menu Item 4','Menu Item 5'];
 
 class StartPage extends React.Component{
   
@@ -80,6 +83,13 @@ class StartPage extends React.Component{
         <View>
           <Text style={styles.titleText}>Вечірки</Text>
           </View>
+          <ScrollingMenu
+      items={items}
+      callback={this.onClick.bind(this)}
+      backgroundColor="#ffffff"
+      textColor="#cccccc"
+      selectedTextColor="#000000"
+      itemSpacing={20} />
          <ListView
             style = {styles.listContainer}
             dataSource = {this.state.dataSource}
@@ -104,6 +114,9 @@ class StartPage extends React.Component{
       </View>
       );
    }
+   onClick(itemIndex) {
+  console.log("Selected: " + items[itemIndex]);
+}
          open(rowData){
            
     this.props.navigator.push({
@@ -121,7 +134,7 @@ render: function() {
                  renderScene={this.renderScene} 
      configureScene={(route) => {
     
-      return Navigator.SceneConfigs.VerticalUpSwipeJump;
+      return Navigator.SceneConfigs.FloatFromRight;
 
   }}
                  />

@@ -25,7 +25,9 @@ class DetailPage extends React.Component{
   }
   render(){
     return (
+      <ScrollView>
         <View style={styles.background}>
+          
            <Animated.View  style={styles.backImage}> 
           <TouchableOpacity onPress={(this.goBack.bind(this))}>
         <Image style={{width:30 , height:30, opacity:1}} source={require('./image/ic_arrow.png')}/>
@@ -50,6 +52,7 @@ class DetailPage extends React.Component{
            </View>
            </ScrollView>
         </View>
+        </ScrollView>
     );
 
 }
@@ -92,7 +95,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   imageEvent: {
-    height:500,
+    height:Dimensions.get('window').height*0.7,
     resizeMode: 'cover'
   },
  textEvent : {
