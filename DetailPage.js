@@ -25,7 +25,7 @@ class DetailPage extends React.Component{
   }
   render(){
     return (
-      <ScrollView>
+      
         <View style={styles.background}>
           
            <Animated.View  style={styles.backImage}> 
@@ -57,7 +57,7 @@ class DetailPage extends React.Component{
            </View>
            </ScrollView>
         </View>
-        </ScrollView>
+        
     );
 
 }
