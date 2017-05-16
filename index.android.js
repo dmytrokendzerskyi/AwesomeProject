@@ -29,12 +29,13 @@ import {
 import MyPresentationalComponent from './MyPresentationalComponent';
 
 var REQUEST_URL = 'http://whereistheparty.com.ua/getEvents?';
+var REQUEST_DATE = 'http://whereistheparty.com.ua/getEvents_dates';
 var dateee = new Date();
 var wholeDate = dateee.getFullYear() + '-' + ('0' + (dateee.getMonth() + 1)).slice(-2) + '-' + ('0' + dateee.getDate()).slice(-2);
 var town = "townId=14";
 var ScrollingMenu = require('react-native-scrolling-menu');
-
 let items = ['Menu Item 1','Menu Item 2','Menu Item 3','Menu Item 4','Menu Item 5'];
+var itemSpace;
 
 class StartPage extends React.Component{
   
@@ -45,8 +46,58 @@ class StartPage extends React.Component{
       
       this.state = {
         dataSource: ds.cloneWithRows(['row 1', 'row 2']),
+        date:  ds.cloneWithRows(['row 1', 'row 2']),
         isLoading: true,
       };
+
+      fetch(REQUEST_DATE)
+      .then((response) => response.json())
+      .then((responseData) => {
+        var dat = new Array(responseData.length);
+        var it= new Array(responseData.length);
+        for(i=0 ; i<responseData.length ; i++){
+        dat[i] = responseData[i].date_event;
+        console.log(dat);
+      }
+      for(i=0 ; i<dat.length ; i++){
+        for(j=0; j<dat.length; j++){
+          var dChange;
+          if(dat[i].substring(0,4)*1000+dat[i].substring(5,7)*100+dat[i].substring(8,10) < dat[j].substring(0,4)*1000+dat[j].substring(5,7)*100+dat[j].substring(8,10)){
+            dChange = dat[i];
+            dat[i]=dat[j];
+            dat[j]=dChange;
+          }
+        }
+      }
+      var k=0;
+      var arrayLenght;
+      for(i=0 ; i<dat.length ; i++){
+        var j= 1;
+        while(dat[i] == dat[i+j] ){
+          j++;
+        }
+      it[k]= dat[i]; 
+      if(dat[i] == dat[i+1]) {
+      i=i+j;
+      } else{
+        i=i;
+      }
+      k++;
+      arrayLenght =k;
+    }
+    console.log("fdsfdssfdfsdfsdf  "+arrayLenght);
+    items = new Array(arrayLenght);
+    this.itemSpace = arrayLenght;
+    for(i=0 ; i<items.length; i++){
+      console.log(it[i]);
+      if(it[i] == null){
+      }else{
+      items[i] = it[i];  
+      }
+    }
+
+      });
+
       fetch(REQUEST_URL+'&dateId='+wholeDate+'&'+town)
       .then((response) => response.json())
       .then((responseData) => {
@@ -56,16 +107,16 @@ class StartPage extends React.Component{
         console.log(dateee.getTime());
          this.setState(state => ({
     dataSource: this.state.dataSource.cloneWithRows(responseData),
-    isLoading: false
-    }));
-
-
-          console.log(this.state.dataSource);
-          
+     isLoading: false
+  }));       
       })
       .done();
+      console.log(this.state.data);
+          console.log(this.state.dataSource);
       
    }
+
+
    
    
    render() {
@@ -89,7 +140,7 @@ class StartPage extends React.Component{
       backgroundColor="#ffffff"
       textColor="#cccccc"
       selectedTextColor="#000000"
-      itemSpacing={20} />
+      itemSpacing={itemSpace} />
          <ListView
             style = {styles.listContainer}
             dataSource = {this.state.dataSource}
@@ -116,6 +167,20 @@ class StartPage extends React.Component{
    }
    onClick(itemIndex) {
   console.log("Selected: " + items[itemIndex]);
+  wholeDate = items[itemIndex] ;
+        fetch(REQUEST_URL+'&dateId='+wholeDate+'&'+town)
+      .then((response) => response.json())
+      .then((responseData) => {
+        
+        // this.setState() will cause the new data to be applied to the UI that is created by the `render` function below
+        console.log(responseData.length);
+        console.log(dateee.getTime());
+         this.setState(state => ({
+    dataSource: this.state.dataSource.cloneWithRows(responseData),
+     isLoading: false
+  }));       
+      })
+   
 }
          open(rowData){
            
