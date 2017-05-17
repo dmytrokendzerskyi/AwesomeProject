@@ -26,16 +26,15 @@ import {
     ActivityIndicator
 } from 'react-native';
 
-var ScrollingMenu = require('react-native-scrolling-menu');
 import MyPresentationalComponent from './MyPresentationalComponent';
 
 var REQUEST_URL = 'http://whereistheparty.com.ua/getEvents?';
 var REQUEST_DATE = 'http://whereistheparty.com.ua/getEvents_dates';
 var dateee = new Date();
 var wholeDate = dateee.getFullYear() + '-' + ('0' + (dateee.getMonth() + 1)).slice(-2) + '-' + ('0' + dateee.getDate()).slice(-2);
-var today = dateee.getFullYear() + '-' + ('0' + (dateee.getMonth() + 1)).slice(-2) + '-' + ('0' + dateee.getDate()).slice(-2);
 var town = "townId=14";
-let items = [];
+var ScrollingMenu = require('react-native-scrolling-menu');
+let items = ['Menu Item 1','Menu Item 2','Menu Item 3','Menu Item 4','Menu Item 5'];
 var itemSpace;
 
 class StartPage extends React.Component{
@@ -49,7 +48,6 @@ class StartPage extends React.Component{
         dataSource: ds.cloneWithRows(['row 1', 'row 2']),
         date:  ds.cloneWithRows(['row 1', 'row 2']),
         isLoading: true,
-        isLoadingData : true, 
       };
 
       fetch(REQUEST_DATE)
@@ -94,14 +92,10 @@ class StartPage extends React.Component{
       console.log(it[i]);
       if(it[i] == null){
       }else{
-        if(it[i]== wholeDate){
-          items[i]= "Сьогодні"
-        }else{
-        items[i] = it[i];  
-        }
+      items[i] = it[i];  
       }
     }
-    this.state.isLoadingData = false;
+
       });
 
       fetch(REQUEST_URL+'&dateId='+wholeDate+'&'+town)
@@ -133,30 +127,6 @@ class StartPage extends React.Component{
         </View>
       );
     }
-    if(this.state.isLoadingData){
-      return(
-
-            <View style = {styles.background}>
-              <ScrollView>
-        <View>
-          <Text style={styles.titleText}>Вечірки</Text>
-          </View>
-          <ScrollingMenu
-      items={items}
-      callback={this.onClick.bind(this)}
-      backgroundColor="#ffffff"
-      textColor="#cccccc"
-      selectedTextColor="#000000"
-      itemSpacing={14} />
-          <View style={{flex: 1, paddingTop: 20 , backgroundColor:'black'}}>
-          <ActivityIndicator />
-        </View>
-         </ScrollView>
-      </View>
-
-      );
-
-    }
       return (
         
             <View style = {styles.background}>
@@ -167,9 +137,9 @@ class StartPage extends React.Component{
           <ScrollingMenu
       items={items}
       callback={this.onClick.bind(this)}
-      backgroundColor="#ffffff"
-      textColor="#cccccc"
-      selectedTextColor="#000000"
+      backgroundColor="#323639"
+      textColor="#888888"
+      selectedTextColor="#ffffff"
       itemSpacing={itemSpace} />
          <ListView
             style = {styles.listContainer}
@@ -197,11 +167,7 @@ class StartPage extends React.Component{
    }
    onClick(itemIndex) {
   console.log("Selected: " + items[itemIndex]);
-  if(items[itemIndex] == "Сьогодні"){
-    wholeDate = today;
-  }else{
   wholeDate = items[itemIndex] ;
-  }
         fetch(REQUEST_URL+'&dateId='+wholeDate+'&'+town)
       .then((response) => response.json())
       .then((responseData) => {
