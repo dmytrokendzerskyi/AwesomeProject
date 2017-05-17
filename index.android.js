@@ -26,6 +26,7 @@ import {
     ActivityIndicator
 } from 'react-native';
 
+var ScrollingMenu = require('react-native-scrolling-menu');
 import MyPresentationalComponent from './MyPresentationalComponent';
 
 var REQUEST_URL = 'http://whereistheparty.com.ua/getEvents?';
@@ -34,7 +35,6 @@ var dateee = new Date();
 var wholeDate = dateee.getFullYear() + '-' + ('0' + (dateee.getMonth() + 1)).slice(-2) + '-' + ('0' + dateee.getDate()).slice(-2);
 var today = dateee.getFullYear() + '-' + ('0' + (dateee.getMonth() + 1)).slice(-2) + '-' + ('0' + dateee.getDate()).slice(-2);
 var town = "townId=14";
-var ScrollingMenu = require('react-native-scrolling-menu');
 let items = [];
 var itemSpace;
 
@@ -147,7 +147,7 @@ class StartPage extends React.Component{
       backgroundColor="#ffffff"
       textColor="#cccccc"
       selectedTextColor="#000000"
-      itemSpacing={itemSpace} />
+      itemSpacing={14} />
           <View style={{flex: 1, paddingTop: 20 , backgroundColor:'black'}}>
           <ActivityIndicator />
         </View>
