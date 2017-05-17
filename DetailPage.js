@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     paddingBottom:10,
     color: 'white',    
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 21,
     fontWeight: 'bold',
   },
   backImage:{
