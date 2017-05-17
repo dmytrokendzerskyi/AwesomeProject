@@ -157,7 +157,7 @@ class StartPage extends React.Component{
       );
 
     }
-      return (
+       return (
         
             <View style = {styles.background}>
               <ScrollView>
