@@ -28,6 +28,8 @@ import {
 
 var ScrollingMenu = require('react-native-scrolling-menu');
 import MyPresentationalComponent from './MyPresentationalComponent';
+import Drawer from 'react-native-drawer';
+import SideMenu from './SideMenu';
 
 var REQUEST_URL = 'http://whereistheparty.com.ua/getEvents?';
 var REQUEST_DATE = 'http://whereistheparty.com.ua/getEvents_dates';
@@ -89,7 +91,7 @@ class StartPage extends React.Component{
     }
     console.log("fdsfdssfdfsdfsdf  "+arrayLenght);
     items = new Array(arrayLenght);
-    this.itemSpace = arrayLenght;
+    itemSpace = arrayLenght;
     for(i=0 ; i<items.length; i++){
       console.log(it[i]);
       if(it[i] == null){
@@ -123,7 +125,13 @@ class StartPage extends React.Component{
    }
 
 
-   
+    static closeControlPanel = () => {
+      console.log('sadsasddas');
+    this._drawer.close()
+  };
+  openControlPanel = () => {
+    this._drawer.open()
+  };
    
    render() {
      if (this.state.isLoading) {
@@ -133,7 +141,7 @@ class StartPage extends React.Component{
         </View>
       );
     }
-    if(this.state.isLoadingData){
+    /*if(this.state.isLoadingData){
       return(
 
             <View style = {styles.background}>
@@ -147,7 +155,7 @@ class StartPage extends React.Component{
       backgroundColor="#ffffff"
       textColor="#cccccc"
       selectedTextColor="#000000"
-      itemSpacing={18} />
+      itemSpacing={10} />
           <View style={{flex: 1, paddingTop: 20 , backgroundColor:'black'}}>
           <ActivityIndicator />
         </View>
@@ -156,12 +164,20 @@ class StartPage extends React.Component{
 
       );
 
-    }
-       return (
-        
+    }*/
+      return (
+         <Drawer
+        ref={(ref) => this._drawer = ref}
+        openDrawerOffset = {Dimensions.get('window').width/2}
+        tapToClose ={false}
+        type = {'overlay'}
+        content={<SideMenu/>}
+        >
             <View style = {styles.background}>
-              <ScrollView>
         <View>
+          <TouchableOpacity onPress={(this.openControlPanel.bind(this))}>
+            <Image style={styles.image_menu} source={require('./image/ic_menu.png')} />
+         </TouchableOpacity>
           <Text style={styles.titleText}>Вечірки</Text>
           </View>
           <ScrollingMenu
@@ -170,7 +186,10 @@ class StartPage extends React.Component{
       backgroundColor="#ffffff"
       textColor="#cccccc"
       selectedTextColor="#000000"
-      itemSpacing={itemSpace} />
+      rowHasChanged = "red"
+      arrayLenght = {itemSpace}
+      itemSpacing={10} />
+      <ScrollView>
          <ListView
             style = {styles.listContainer}
             dataSource = {this.state.dataSource}
@@ -184,7 +203,7 @@ class StartPage extends React.Component{
    <View>
        <Text  style = {styles.textName}>{rowData.name_company}</Text>
                 <Text  style = {styles.textEvent}>{rowData.name_event}</Text>
-      <Text numberOfLines={10} style =  {styles.textDescription}>{rowData.description_event}</Text>
+      <Text numberOfLines={5} style =  {styles.textDescription}>{rowData.description_event}</Text>
       </View>
        </TouchableOpacity>
        
@@ -193,6 +212,7 @@ class StartPage extends React.Component{
          />
          </ScrollView>
       </View>
+      </Drawer>
       );
    }
    onClick(itemIndex) {
@@ -222,7 +242,9 @@ class StartPage extends React.Component{
             id: 'DetailPage',
             data: rowData
         });
+        
  }
+ openMenu(){}
 }
 
 var AwesomeProject = React.createClass ({
@@ -268,6 +290,10 @@ render: function() {
     textAlign: 'center',
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  image_menu :{
+    width:20,
+    height: 20
   },
      row: {
     flexDirection: 'row',

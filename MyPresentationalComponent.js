@@ -10,7 +10,6 @@ import {
      Navigator
 }  from  'react-native'
 
-import OpenDetailPage from './OpenDetailPage.js';
 
 
   class MyPresentationalComponent extends Component{

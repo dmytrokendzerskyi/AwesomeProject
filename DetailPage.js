@@ -64,7 +64,7 @@ class DetailPage extends React.Component{
 
 const styles = StyleSheet.create({
   background: {
-        flex: 1,
+        flex: 0,
          backgroundColor : '#1C2124',
 
     },
