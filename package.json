@@ -9,6 +9,8 @@
   "dependencies": {
     "react": "16.0.0-alpha.6",
     "react-native": "0.43.4",
+    "react-native-drawer": "^2.3.0",
+    "react-native-scrolling-button-menu": "0.0.4",
     "react-native-scrolling-menu": "^0.1.1"
   },
   "devDependencies": {

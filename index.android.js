@@ -12,6 +12,8 @@
 var ReactNative = require('react-native');
 var React = require('react');
 var DetailPage = require('./DetailPage');
+var NightClub = require('./NightClub');
+
 import {
    ListView,
    View,
@@ -23,7 +25,9 @@ import {
     Dimensions,
     TouchableOpacity,
     ScrollView,
-    ActivityIndicator
+    ActivityIndicator,
+    ViewPagerAndroid,
+     Animated,
 } from 'react-native';
 
 var ScrollingMenu = require('react-native-scrolling-menu');
@@ -168,18 +172,20 @@ class StartPage extends React.Component{
       return (
          <Drawer
         ref={(ref) => this._drawer = ref}
-        openDrawerOffset = {Dimensions.get('window').width/2}
+        openDrawerOffset = {50}
         tapToClose ={false}
         type = {'overlay'}
         content={<SideMenu/>}
         >
+      
             <View style = {styles.background}>
-        <View>
+            
+        <Animated.View>
           <TouchableOpacity onPress={(this.openControlPanel.bind(this))}>
             <Image style={styles.image_menu} source={require('./image/ic_menu.png')} />
          </TouchableOpacity>
           <Text style={styles.titleText}>Вечірки</Text>
-          </View>
+          </Animated.View>
           <ScrollingMenu
       items={items}
       callback={this.onClick.bind(this)}
@@ -189,7 +195,7 @@ class StartPage extends React.Component{
       rowHasChanged = "red"
       arrayLenght = {itemSpace}
       itemSpacing={10} />
-      <ScrollView>
+   
          <ListView
             style = {styles.listContainer}
             dataSource = {this.state.dataSource}
@@ -210,7 +216,8 @@ class StartPage extends React.Component{
                )
             }
          />
-         </ScrollView>
+       
+        
       </View>
       </Drawer>
       );
@@ -275,6 +282,12 @@ render: function() {
             <DetailPage
                 navigator={navigator} data={routeData} />
         );
+    }
+    if(routeId === 'NightClub'){
+      return (
+        <NightClub
+              navigator={navigator} />
+      )
     }
 }
 })

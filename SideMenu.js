@@ -6,9 +6,12 @@ import {
    StyleSheet,
    Image,
     Dimensions,
-    TouchableOpacity
+    TouchableOpacity,
+    Navigator
 
 }  from  'react-native'
+
+var NightClub = require('./NightClub');
 
 
 import StartPage from './index.android';
@@ -19,11 +22,10 @@ export default class SideMenu extends  React.Component{
 
     console.log(props.navigator) // <- this will print in console if you are passing a navigator object.
   }
-      open (){
+      openNightClub (){
         console.log("detail page run");
-  var navigator = this.props.navigator
-        navigator.replace({
-            id: 'DetailPage',
+    this.props.navigator.push({
+            id: 'NightClub',
         });
       }
       close (){
@@ -34,18 +36,25 @@ render(){
   
   return(
     <View style = {styles.background}>  
-      <TouchableOpacity onPress={(this.close.bind(this))}>
+      {/*<TouchableOpacity onPress={(this.close.bind(this))}>
             <Image style={styles.image_menu} source={require('./image/ic_menu.png')} />
-         </TouchableOpacity>
+         </TouchableOpacity>*/}
+         <Image style={styles.imageMenu} source={require('./image/menu_img.jpg')} />
+      <TouchableOpacity>
       <View style={styles.row}>
-        <Text>Вечірки</Text>
+        <Text style={styles.titleText}>Вечірки</Text>
       </View>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={this.openNightClub.bind(this)}>
       <View  style={styles.row}>
-        <Text>Нічні Клуби</Text>
+        <Text style={styles.titleText}>Нічні Клуби</Text>
       </View>
+      </TouchableOpacity>
+      <TouchableOpacity>
       <View  style={styles.row}>
-        <Text>Улюблені Вечірки</Text>
+        <Text style={styles.titleText}>Улюблені Вечірки</Text>
       </View>
+      </TouchableOpacity>
 
     </View>
 
@@ -63,11 +72,21 @@ render(){
          borderWidth: 1,
          flexDirection: 'row',
          margin:3,
-         marginLeft:10,
          padding: 3,
          backgroundColor: '#323639',
          alignSelf: "stretch" 
-    }
+    },
+    titleText: {
+    paddingTop:10,
+    color: 'white',    
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  imageMenu : {
+    height:200,
+    width:370
+  }
 
   })
 
